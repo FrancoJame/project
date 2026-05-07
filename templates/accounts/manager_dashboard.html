@@ -48,6 +48,24 @@
         <div class="badge bg-gold text-dark p-2 px-3">Manager Access</div>
     </div>
 
+    <!-- Date Filter -->
+    <div class="glass-card mb-4 p-3">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label text-white-50 small">Start Date</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date|default:'' }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label text-white-50 small">End Date</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date|default:'' }}">
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-gold flex-grow-1">Filter Analytics</button>
+                <a href="{% url 'manager_dashboard' %}" class="btn btn-outline-light">Reset</a>
+            </div>
+        </form>
+    </div>
+
     <!-- Quick Stats -->
     <div class="dashboard-grid">
         <div class="stat-card">

@@ -12,6 +12,7 @@ Class-based views
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
+from django.views.generic import TemplateView
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
@@ -41,6 +42,8 @@ urlpatterns = [
     path('api/', include('api.urls')),
     # path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('manifest.json', TemplateView.as_view(template_name='manifest.json', content_type='application/json')),
+    path('service-worker.js', TemplateView.as_view(template_name='service-worker.js', content_type='application/javascript')),
     path('', include('products.urls', namespace='home')), # Set products as home for now
 ]
 

@@ -43,8 +43,25 @@ class ManagerDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
+        # Date filtering
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+        
+        order_items = OrderItem.objects.all()
+        bookings = Booking.objects.all()
+        
+        if start_date:
+            order_items = order_items.filter(order__created_at__date__gte=start_date)
+            bookings = bookings.filter(created_at__date__gte=start_date)
+        if end_date:
+            order_items = order_items.filter(order__created_at__date__lte=end_date)
+            bookings = bookings.filter(created_at__date__lte=end_date)
+            
+        context['start_date'] = start_date
+        context['end_date'] = end_date
+
         # 1. Sales by Category
-        sales_by_category = OrderItem.objects.values('product__category__name').annotate(
+        sales_by_category = order_items.values('product__category__name').annotate(
             total_sold=Sum('quantity')
         ).order_by('-total_sold')
         
@@ -52,7 +69,7 @@ class ManagerDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView
         context['category_data'] = [item['total_sold'] for item in sales_by_category]
         
         # 2. Most Used Rooms
-        room_utilization = Booking.objects.values('room__name').annotate(
+        room_utilization = bookings.values('room__name').annotate(
             booking_count=Count('id')
         ).order_by('-booking_count')
         
@@ -60,8 +77,8 @@ class ManagerDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView
         context['room_data'] = [item['booking_count'] for item in room_utilization]
         
         # Summary Stats
-        context['total_orders'] = OrderItem.objects.count()
-        context['total_bookings'] = Booking.objects.count()
+        context['total_orders'] = order_items.aggregate(total=Sum('quantity'))['total'] or 0
+        context['total_bookings'] = bookings.count()
         
         return context
 
