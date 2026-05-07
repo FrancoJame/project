@@ -29,15 +29,20 @@ DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = [
     "chupa-ku-chupa-production.up.railway.app", 
-    "project-production-5a61.up.railway.app",
     "localhost", 
     "127.0.0.1"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://chupa-ku-chupa-production.up.railway.app",
-    "https://project-production-5a61.up.railway.app",
 ]
+
+# Security settings for Railway/Production
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # Application definition
