@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Category - CHUPA ku CHUPA{% endblock %}
+
+{% block content %}
+<div class="animate-fade">
+    <div class="auth-container" style="max-width: 500px; margin: 0 auto;">
+        <div class="glass-card">
+            <h2 class="text-gold mb-4">Add New Category</h2>
+            
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label text-white">{{ field.label }}</label>
+                    <input type="text" name="{{ field.name }}" class="form-control bg-dark text-white border-secondary" required>
+                    {% if field.help_text %}
+                        <div class="form-text text-white-50 small">{{ field.help_text }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-gold py-3 fw-bold">Save Category</button>
+                    <a href="{% url 'products:category_list' %}" class="btn btn-outline-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

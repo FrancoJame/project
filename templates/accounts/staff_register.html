@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Register Staff - CHUPA ku CHUPA{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    form input, form select, form textarea {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #212529;
+        color: white;
+        border: 1px solid #495057;
+        border-radius: 0.25rem;
+    }
+    form input:focus {
+        background-color: #2b3035;
+        border-color: #D4AF37;
+        outline: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="animate-fade">
+    <div class="auth-container">
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-gold mb-0">Register New Staff</h2>
+                <span class="badge bg-gold text-dark p-2">Manager Only</span>
+            </div>
+            
+            <p class="text-white-50 mb-4">Create a new staff account. They will have access to the POS and Booking management.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label text-white">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <div class="form-text text-white-50 small">{{ field.help_text|safe }}</div>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-gold py-3 fw-bold">Register Staff</button>
+                    <a href="{% url 'manager_dashboard' %}" class="btn btn-outline-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

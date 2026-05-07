@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.views.generic import TemplateView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, StaffCreationForm
 from .models import CustomUser
 from bookings.models import Booking
 
@@ -56,3 +56,17 @@ class CustomerDashboardView(LoginRequiredMixin, TemplateView):
         context['total_bookings'] = bookings.count()
         
         return context
+
+class ManagerRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.role == 'MANAGER'
+
+class StaffRegistrationView(LoginRequiredMixin, ManagerRequiredMixin, CreateView):
+    form_class = StaffCreationForm
+    template_name = 'accounts/staff_register.html'
+    success_url = reverse_lazy('manager_dashboard')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        # You could add a success message here
+        return response

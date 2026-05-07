@@ -35,3 +35,14 @@ class ProductUpdateView(LoginRequiredMixin, ManagerRequiredMixin, UpdateView):
     form_class = ProductForm
     template_name = 'products/product_form.html'
     success_url = reverse_lazy('products:product_list')
+
+class CategoryListView(LoginRequiredMixin, ManagerRequiredMixin, ListView):
+    model = Category
+    template_name = 'products/category_list.html'
+    context_object_name = 'categories'
+
+class CategoryCreateView(LoginRequiredMixin, ManagerRequiredMixin, CreateView):
+    model = Category
+    template_name = 'products/category_form.html'
+    fields = ['name']
+    success_url = reverse_lazy('products:category_list')

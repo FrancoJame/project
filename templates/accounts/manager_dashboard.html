@@ -80,6 +80,34 @@
         </div>
     </div>
 
+    <!-- Manager Actions -->
+    <div class="mt-5">
+        <h3 class="mb-4 text-gold">Manager Actions</h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a href="{% url 'register_staff' %}" class="btn btn-glass w-100 py-4 text-start">
+                    <i class="bi bi-person-plus-fill fs-3 text-gold d-block mb-2"></i>
+                    <h5 class="mb-1">Register Staff</h5>
+                    <p class="small text-white-50 mb-0">Create new staff accounts</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'products:product_add' %}" class="btn btn-glass w-100 py-4 text-start">
+                    <i class="bi bi-plus-circle-fill fs-3 text-gold d-block mb-2"></i>
+                    <h5 class="mb-1">Add Product</h5>
+                    <p class="small text-white-50 mb-0">Create new menu items</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'products:category_list' %}" class="btn btn-glass w-100 py-4 text-start">
+                    <i class="bi bi-tags-fill fs-3 text-gold d-block mb-2"></i>
+                    <h5 class="mb-1">Manage Categories</h5>
+                    <p class="small text-white-50 mb-0">View and add product categories</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Analytics Charts -->
     <div class="row mt-4">
         <div class="col-lg-6">
