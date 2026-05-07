@@ -29,12 +29,14 @@ DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = [
     "chupa-ku-chupa-production.up.railway.app", 
+    "project-production-5a61.up.railway.app",
     "localhost", 
     "127.0.0.1"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://chupa-ku-chupa-production.up.railway.app",
+    "https://project-production-5a61.up.railway.app",
 ]
 
 
