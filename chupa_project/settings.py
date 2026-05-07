@@ -28,12 +28,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-09_+t4xr3*)syv16g_nm-
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = [
-    "chupa-ku-chupa-production.up.railway.app", 
+    ".up.railway.app",
     "localhost", 
     "127.0.0.1"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://project-production-5a61.up.railway.app",
     "https://chupa-ku-chupa-production.up.railway.app",
 ]
 
